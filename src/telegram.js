@@ -1,5 +1,11 @@
 import { fetchJson } from "./http.js";
 
+export function normalizeAudioFilename(filename) {
+  return filename.toLowerCase().endsWith(".oga")
+    ? `${filename.slice(0, -4)}.ogg`
+    : filename;
+}
+
 export function createTelegramClient(token) {
   const apiBase = `https://api.telegram.org/bot${token}`;
   const fileBase = `https://api.telegram.org/file/bot${token}`;
@@ -24,7 +30,7 @@ export function createTelegramClient(token) {
       if (!response.ok) throw new Error(`Could not download Telegram file (${response.status})`);
       return {
         bytes: await response.arrayBuffer(),
-        filename: file.file_path.split("/").pop() || "voice.ogg",
+        filename: normalizeAudioFilename(file.file_path.split("/").pop() || "voice.ogg"),
       };
     },
     setWebhook(url, secretToken) {
