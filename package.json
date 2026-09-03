@@ -1,0 +1,16 @@
+{
+  "name": "telegram-voice-to-sheets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Turn Telegram voice notes into structured Google Sheets leads.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "start:webhook": "node src/index.js --webhook",
+    "check": "for file in src/*.js; do node --check \"$file\"; done",
+    "test": "node --test"
+  }
+}
